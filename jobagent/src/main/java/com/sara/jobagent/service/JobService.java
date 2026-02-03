@@ -26,4 +26,8 @@ public class JobService {
     public void delete(Long id) {
     repository.deleteById(id);
 }
+public List<Job> getSorted() {
+    return repository.findAllByOrderByScoreDesc();
+}
+
 }

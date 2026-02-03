@@ -40,5 +40,10 @@ public class JobController {
     public void delete(@PathVariable Long id) {
         service.delete(id);
     }
+    @GetMapping("/sorted")
+public List<Job> getSorted() {
+    return service.getSorted();
+}
+
 }
 
