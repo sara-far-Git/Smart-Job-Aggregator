@@ -13,14 +13,20 @@ import java.util.stream.Collectors;
 public class ResumeService {
 
     private final ResumeRepository repo;
+    private final ResumeParserService parser; // ⭐ חדש
 
-    public ResumeService(ResumeRepository repo) {
+    public ResumeService(ResumeRepository repo, ResumeParserService parser) {
         this.repo = repo;
+        this.parser = parser;
     }
 
-    public Resume upload(MultipartFile file) throws IOException {
+    public Resume upload(MultipartFile file) throws Exception {
 
-        String text = new String(file.getBytes());
+        // ⭐ כאן השינוי החשוב
+        String text = parser.extractText(
+                file.getOriginalFilename(),
+                file.getInputStream()
+        );
 
         String keywords = extractKeywords(text);
 
@@ -33,9 +39,7 @@ public class ResumeService {
     }
 
 
-    // חילוץ בסיסי מאוד (נשדרג בהמשך ל-AI)
     private String extractKeywords(String text) {
-
         return Arrays.stream(text.split("\\W+"))
                 .filter(word -> word.length() > 4)
                 .limit(50)

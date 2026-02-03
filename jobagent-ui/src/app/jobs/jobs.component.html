@@ -1,0 +1,19 @@
+<h2>Job Matches</h2>
+
+<table border="1" cellpadding="8">
+  <tr>
+    <th>Title</th>
+    <th>Company</th>
+    <th>Score</th>
+    <th>Link</th>
+  </tr>
+
+  <tr *ngFor="let job of jobs">
+    <td>{{ job.title }}</td>
+    <td>{{ job.company }}</td>
+    <td>{{ job.score }}</td>
+    <td>
+      <a [href]="job.link" target="_blank">Open</a>
+    </td>
+  </tr>
+</table>
