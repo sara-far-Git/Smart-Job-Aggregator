@@ -22,4 +22,8 @@ public class JobService {
     public Job create(Job job) {
         return repository.save(job);
     }
+
+    public void delete(Long id) {
+    repository.deleteById(id);
+}
 }

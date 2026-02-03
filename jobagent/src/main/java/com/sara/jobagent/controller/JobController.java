@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/jobs")
+@CrossOrigin
 public class JobController {
 
     private final JobService service;
@@ -25,4 +26,19 @@ public class JobController {
     public Job create(@RequestBody Job job) {
         return service.create(job);
     }
+
+    @GetMapping("/{id}")
+    public Job getById(@PathVariable Long id) {
+        return service.getAll()
+                .stream()
+                .filter(j -> j.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        service.delete(id);
+    }
 }
+
